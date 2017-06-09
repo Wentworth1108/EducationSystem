@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="cn.gcs.classinfo.entity.ClassInfo" table="class">
+		<id name="classId" column="class_id">
+			<generator class="native" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="20" not-null="true" />
+		</property>
+		<property name="classroom" type="java.lang.String">
+			<column name="classroom" length="20" />
+		</property>
+
+
+		<many-to-one name="user" class="cn.gcs.user.entity.User" column="user_id"></many-to-one>		
+		<set name="electives" inverse="true" cascade="save-update,delete">
+			<key>
+				<column name="class_id"></column>
+			</key>
+			<one-to-many class="cn.gcs.classinfo.entity.Elective"/>
+		</set>
+	</class>
+</hibernate-mapping>

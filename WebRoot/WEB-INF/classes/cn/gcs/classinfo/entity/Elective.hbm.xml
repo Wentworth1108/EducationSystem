@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="cn.gcs.classinfo.entity.Elective" table="select_course">
+		<composite-id name="id" class="cn.gcs.classinfo.entity.ElectiveId">
+			<key-many-to-one name="course" class="cn.gcs.course.entity.Course">
+				<column name="course_id" ></column>
+			</key-many-to-one>
+			<key-property name="classId" type="java.lang.Integer">
+				<column name="class_id"></column>
+			</key-property>
+		</composite-id>
+	</class>
+</hibernate-mapping>

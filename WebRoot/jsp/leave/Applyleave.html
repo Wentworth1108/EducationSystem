@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $("#btn1").on('click', function() {
+            $.ajax({
+                url: 'apply_leave',
+                traditional: true,
+                data: {
+                    'reason': $('#reason').val(),
+                    'date': $('#date').datebox('getValue')
+                },
+                success: function(data) {
+                    alert('申请成功,等待审批')
+                }
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div id="newdialog" title="申请离园" modal=true class="easyui-dialog" closed=false style="width:300px;">
+        <form id="newform" method="post">
+            <table align="center" style="margin-top: 15px;margin-bottom: 10px">
+                <tr>
+                    <td>离园时间:</td>
+                    <td>
+                        <input type="text" id="date" name="date" class="easyui-datebox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>原因:</td>
+                    <td>
+                        <textarea id="reason" name="reason"></textarea>
+                    </td>
+                </tr>
+                <tr align="center" style="margin-top: 10px">
+                    <td colspan="2">
+                        <a id="btn1" class="easyui-linkbutton" style="margin-right: 15px">提交申请</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>

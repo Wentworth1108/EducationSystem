@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Interview</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $('#t_interview').datagrid({
+            idField: 'id', //只要创建数据表格 就必须要加 idField
+            title: '审批参加面试',
+            fit: true,
+            url: './datagrid_data_approvalforinterview',
+            fitColumns: true,
+            striped: true, //隔行变色特性
+            nowrap: false, //折行显示 为true 显示在一行
+            loadMsg: '数据正在加载,请耐心的等待...',
+            rownumbers: true,
+            columns: [
+                [{
+                    field: 'checkbox',
+                    width: 50,
+                    checkbox: true,
+                    align: 'center'
+                }, {
+                    field: 'person',
+                    title: '申请人',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'personid',
+                    title: '申请人ID',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'interviewid',
+                    title: '面试ID',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'company',
+                    title: '面试公司',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'job',
+                    title: '面试岗位',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'address',
+                    title: '面试地点',
+                    width: 360,
+                    align: 'center'
+                }, {
+                    field: 'date',
+                    title: '面试时间',
+                    width: 100,
+                    align: 'center',
+                    sortable: true
+                }]
+            ],
+            pagination: true,
+            toolbar: '#tb'
+        });
+    });
+
+	function pass() {
+		var data = $('#t_interview').datagrid('getSelections');
+        if (data[0] != null) {
+            if (confirm('确认批准这'+data.length+'项?')) {
+                var id = new Array();
+                for (i = 0; i < data.length; i++) {
+                    id[i] = data[i].id
+                }
+                $.ajax({
+                    url: 'approvalinterview',
+                    traditional: true,
+                    data: {
+                    	'handle': 'pass',
+                        'id': id
+                    },
+                    success: function(){
+                    	$('#t_interview').datagrid('reload');
+                    }
+                });
+                $('#t_interview').datagrid('clearSelections');
+            }
+        } else {
+            alert('没有选中数据');
+        }
+	}
+	
+	function refuse() {
+		var data = $('#t_interview').datagrid('getSelections');
+        if (data[0] != null) {
+            if (confirm('确认拒绝这'+data.length+'项?')) {
+                var id = new Array();
+                for (i = 0; i < data.length; i++) {
+                    id[i] = data[i].id
+                }
+                $.ajax({
+                    url: 'approvalinterview',
+                    traditional: true,
+                    data: {
+                    	'handle': 'refuse',
+                        'id': id
+                    },
+                    success: function(){
+                    	$('#t_interview').datagrid('reload');
+                    }
+                });
+                $('#t_interview').datagrid('clearSelections');
+            }
+        } else {
+            alert('没有选中数据');
+        }
+	}
+    </script>
+</head>
+
+<body>
+    <table id="t_interview"></table>
+    
+    <div id="tb" style="padding:2px 5px;">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="pass()">通过</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="refuse()">拒绝</a>
+    </div>
+</body>
+
+</html>

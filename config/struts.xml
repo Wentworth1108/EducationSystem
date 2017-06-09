@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 禁用动态方法访问 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- 配置成开发模式 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 配置拓展名为action -->
+	<constant name="struts.action.extention" value="action" />
+	<!-- 把主题配置成simple -->
+	<constant name="struts.ui.theme" value="simple" />
+
+
+	<include file="cn/gcs/student/conf/student-struts.xml"></include>
+	<include file="cn/gcs/user/conf/user-struts.xml"></include>
+	
+	
+	<include file="cn/gcs/rest/conf/rest-struts.xml"></include>
+	<include file="cn/gcs/violate/conf/violate-struts.xml"></include>
+	
+	<include file="cn/gcs/talk/conf/talk-struts.xml"></include>
+	<include file="cn/gcs/classinfo/conf/classInfo-struts.xml"></include>
+	
+	
+	<include file="cn/gcs/course/conf/course-struts.xml"></include>
+	<include file="cn/gcs/change/conf/change-struts.xml"></include>
+	
+	<!-- 包含系统首页的struts配置文件 -->
+	<include file="cn/gcs/role/conf/role-struts.xml"/>
+	<!-- 包含考试管理的struts配置文件 -->
+	<include file="cn/gcs/exam/conf/exam-struts.xml"/>
+	<!-- 包含成绩管理的struts配置文件 -->
+	<include file="cn/gcs/score/conf/score-struts.xml"/>
+	
+	<include file="cn/gcs/interview/struts.xml"/>
+	
+	
+</struts>

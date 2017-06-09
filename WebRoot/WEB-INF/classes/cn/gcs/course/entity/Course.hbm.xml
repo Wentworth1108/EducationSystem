@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="cn.gcs.course.entity.Course" table="course">
+		<id name="courseId" column="course_id">
+			<generator class="native" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="20" not-null="true" />
+		</property>
+		<set name="courseTeachers" inverse="true" lazy="false" cascade="save-update,delete">
+			<key>
+				<column name="course_id"></column>
+			</key>
+			<one-to-many class="cn.gcs.course.entity.CourseTeacher"/>
+		</set>
+	</class>
+</hibernate-mapping>

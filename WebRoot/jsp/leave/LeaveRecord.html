@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $('#t_leaverecord').datagrid({
+            idField: 'id', //只要创建数据表格 就必须要加 idField
+            title: '离园记录',
+            fit: true,
+            url: './datagrid_data_leave_record',
+            fitColumns: false,
+            striped: true, //隔行变色特性
+            nowrap: true, //折行显示 为true 显示在一行
+            loadMsg: '数据正在加载,请耐心的等待...',
+            rownumbers: true,
+            singleSelect: true, //单选模式
+            columns: [
+                [{
+                    field: 'checkbox',
+                    width: 50,
+                    checkbox: true,
+                    align: 'center'
+                }, {
+                	field: 'id',
+                	title: '记录编号',
+                	width: 100,
+                	align: 'center'
+                }, {
+                    field: 'personid',
+                    title: '人员编号',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'name',
+                    title: '姓名',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'phone',
+                    title: '联系方式',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'school',
+                    title: '毕业院校',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'date',
+                    title: '离园时间',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'reason',
+                    title: '离园原因',
+                    width: 500,
+                    align: 'center'
+                }, {
+                    field: 'jiaowubu',
+                    title: '教务部批准',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'jiuyebu',
+                    title: '就业部批准',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'caiwubu',
+                    title: '财务部批准',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'houqinbu',
+                    title: '后勤部批准',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'banzhuren',
+                    title: '班主任批准',
+                    width: 100,
+                    align: 'center'
+                }]
+            ],
+            pagination: true,
+            toolbar: '#tb'
+        });
+    });
+
+    </script>
+</head>
+
+<body>
+    <table id="t_leaverecord"></table>
+</body>
+
+</html>

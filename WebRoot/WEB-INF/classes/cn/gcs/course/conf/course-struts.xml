@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="course-action" namespace="/course" extends="struts-default">
+		<action name="course_listUI" class="cn.gcs.course.action.CourseAction" method="listUI">
+			<result name="listUI">/jsp/course/course/listUI.jsp</result>
+		</action>
+		<action name="course_add" class="cn.gcs.course.action.CourseAction" method="add">
+			<result name="list" type="redirectAction">course_listUI</result>
+		</action>
+		<action name="course_edit" class="cn.gcs.course.action.CourseAction" method="edit">
+			<result name="list" type="redirectAction">course_listUI</result>
+		</action>
+		<action name="course_deleteSelected" class="cn.gcs.course.action.CourseAction" method="deleteSelected">
+			<result name="list" type="redirectAction">course_listUI</result>
+		</action>
+    </package>
+	<package  name="course-data" namespace="/course" extends="json-default">
+		<action name="course_data" class="cn.gcs.course.action.CourseAction" method="listUI">
+			<result name="listUI" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+	</package>
+</struts>

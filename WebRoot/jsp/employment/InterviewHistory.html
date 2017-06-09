@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Interview</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $('#t_interview').datagrid({
+            idField: 'id', //只要创建数据表格 就必须要加 idField
+            title: '面试管理',
+            fit: true,
+            url: './datagrid_data_interview_history',
+            fitColumns: true,
+            striped: true, //隔行变色特性
+            nowrap: false, //折行显示 为true 显示在一行
+            loadMsg: '数据正在加载,请耐心的等待...',
+            rownumbers: true,
+            columns: [
+                [{
+                    field: 'checkbox',
+                    width: 50,
+                    checkbox: true,
+                    align: 'center'
+                }, {
+                    field: 'id',
+                    title: '编号',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'company',
+                    title: '面试公司',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'job',
+                    title: '面试岗位',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'address',
+                    title: '面试地点',
+                    width: 360,
+                    align: 'center'
+                }, {
+                    field: 'date',
+                    title: '面试时间',
+                    width: 100,
+                    align: 'center',
+                }, {
+                    field: 'number',
+                    title: '招聘人数',
+                    width: 50,
+                    align: 'center'
+                }, {
+                    field: 'failTime',
+                    title: '过期时间',
+                    width: 100,
+                    align: 'center',
+                }]
+            ],
+            pagination: true,
+            toolbar: '#tb'
+        });
+	});
+    </script>
+</head>
+
+<body>
+    <table id="t_interview"></table>
+</body>
+
+</html>

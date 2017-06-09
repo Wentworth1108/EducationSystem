@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+     	<package  name="change-data" namespace="/change" extends="json-default">
+		<action name="change_data" class="cn.gcs.change.action.ChangeAction" method="changeList">
+			<result name="changeList" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+		<action name="change_studata" class="cn.gcs.change.action.ChangeAction" method="changeInfo">
+			<result name="changeInfo" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="change-action" namespace="/change" extends="struts-default">
+		<action name="change_listUI" class="cn.gcs.change.action.ChangeAction" method="changeList">
+			<result name="changeList">/jsp/class/changeClass/listUI.jsp</result>
+		</action>
+		<action name="change_editClass" class="cn.gcs.change.action.ChangeAction" method="editClass">
+			<result name="list" type="redirectAction">change_listUI</result>
+		</action>
+		
+		
+		<action name="change_edit" class="cn.gcs.change.action.ChangeAction" method="edit">
+			<result type="redirect">/jsp/daily/d_changeClassInfo.jsp</result>
+		</action>
+		
+		<action name="change_add" class="cn.gcs.change.action.ChangeAction" method="add">
+			<result type="redirect">/jsp/student/t_changeClass.jsp</result>
+		</action>
+		
+		<action name="change_verifyStudent" class="cn.gcs.change.action.ChangeAction" method="verifyStudent">
+		</action>
+    </package>
+
+</struts>

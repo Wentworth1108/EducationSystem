@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="cn.gcs.score.entity.Score" table="score">
+        <id name="scoreId">
+            <column name="score_id"/>
+            <generator class="native" />
+        </id>
+        <property name="score" type="java.lang.Float">
+            <column name="score"/>
+        </property>
+        <property name="comment" type="java.lang.String">
+            <column name="comment" length="200" />
+        </property>
+        <!-- 多对一 -->
+		<many-to-one name="exam" column="exam_id" class="cn.gcs.exam.entity.Exam"></many-to-one>
+		<many-to-one name="student" column="student_id" class="cn.gcs.student.entity.Student"></many-to-one>
+    </class>
+</hibernate-mapping>

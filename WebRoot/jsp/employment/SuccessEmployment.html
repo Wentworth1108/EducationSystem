@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EmploymentRecord</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $('#t_employmentrecord').datagrid({
+            idField: 'id', //只要创建数据表格 就必须要加 idField
+            title: '入职跟踪',
+            fit: true,
+            url: './datagrid_data_successemployment_record',
+            fitColumns: false,
+            striped: true, //隔行变色特性
+            nowrap: true, //折行显示 为true 显示在一行
+            loadMsg: '数据正在加载,请耐心的等待...',
+            rownumbers: true,
+            columns: [
+                [{
+                    field: 'checkbox',
+                    width: 50,
+                    checkbox: true,
+                    align: 'center'
+                }, {
+                    field: 'id',
+                    title: '记录编号',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'studentid',
+                    title: '人员编号',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'name',
+                    title: '姓名',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'gender',
+                    title: '性别',
+                    width: 40,
+                    align: 'center'
+                }, {
+                    field: 'phone',
+                    title: '联系方式',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'school',
+                    title: '毕业院校',
+                    width: 160,
+                    align: 'center'
+                }, {
+                    field: 'education',
+                    title: '学历',
+                    width: 50,
+                    align: 'center'
+                }, {
+                    field: 'company',
+                    title: '入职公司',
+                    width: 200,
+                    align: 'center'
+                }, {
+                    field: 'job',
+                    title: '入职岗位',
+                    width: 200,
+                    align: 'center'
+                }, {
+                    field: 'date',
+                    title: '入职时间',
+                    width: 100,
+                    align: 'center',
+                }, {
+                    field: 'pay',
+                    title: '薪水',
+                    width: 80,
+                    align: 'center',
+                }]
+            ],
+            pagination: true,
+            toolbar: '#tb'
+        });
+
+        $("#search").on('click', function() {
+            $('#t_employmentrecord').datagrid('load', {
+                fuzzy: $('#fuzzy').is(':checked'),
+                id: $("#id").val(),
+                studentid: $("#studentid").val(),
+                name: $("#name").val(),
+                school: $("#school").val(),
+                education: $("#education").val(),
+                company: $("#company").val(),
+                job: $("#job").val(),
+                start: $("#start").datebox('getValue'),
+                end: $("#end").datebox('getValue')
+            });
+        });
+
+        $("#btn1").on('click', function() {
+            $('#newform').form({
+                url: 'add_successemployment_record',
+                onSubmit: function() {},
+                success: function(data) {
+                    alert('成功')
+                    $('#t_employmentrecord').datagrid('reload');
+                }
+            });
+            $('#newform').submit();
+            $('#newdialog').dialog('close');
+        });
+
+        $("#btn2").on('click', function() {
+            $('#modifyform').form({
+                url: 'modify_successemployment_record',
+                onSubmit: function() {},
+                success: function(data) {
+                    alert('成功')
+                    $('#t_employmentrecord').datagrid('reload');
+                    $('#t_employmentrecord').datagrid('clearSelections');
+                }
+            });
+            $('#modifyform').submit();
+            $('#modifydialog').dialog('close');
+        });
+
+        $(".closebtn").on('click', function() {
+            $('.easyui-dialog').dialog('close');
+        });
+
+    });
+
+
+
+    function newRecord() {
+        $('#newdialog').dialog('open');
+    }
+
+    function modifyRecord() {
+        var data = $('#t_employmentrecord').datagrid('getSelected');
+        if (data != null) {
+            $('#modifyform').form('load', data);
+            $('#modifydialog').dialog('open');
+        } else {
+            alert('没有选中要修改的数据');
+        }
+    }
+
+    function deleteRecord() {
+        var data = $('#t_employmentrecord').datagrid('getSelections');
+        if (data[0] != null) {
+            if (confirm('确认删除?')) {
+                var id = new Array();
+                for (i = 0; i < data.length; i++) {
+                    id[i] = data[i].id
+                }
+                $.ajax({
+                    url: 'delete_successemployment_record',
+                    traditional: true,
+                    data: {
+                        'id': id
+                    }
+                });
+                $('#t_employmentrecord').datagrid('reload');
+                $('#t_employmentrecord').datagrid('clearSelections');
+            }
+        } else {
+            alert('没有选中要删除的数据');
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <table id="t_employmentrecord"></table>
+    <div id="newdialog" title="入职管理" modal=true class="easyui-dialog" closed=true style="width:300px;">
+        <form id="newform" method="post">
+            <table align="center" style="margin-top: 15px;margin-bottom: 10px">
+                <tr>
+                    <td>人员编号:</td>
+                    <td>
+                        <input type="text" name="studentid" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>入职公司:</td>
+                    <td>
+                        <input type="text" name="company" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>入职岗位:</td>
+                    <td>
+                        <input type="text" name="job" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>入职时间:</td>
+                    <td>
+                        <input type="text" name="date" class="easyui-datebox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>薪水:</td>
+                    <td>
+                        <input type="text" name="pay" />
+                    </td>
+                </tr>
+                <tr align="center" style="margin-top: 10px">
+                    <td colspan="2">
+                        <a class="easyui-linkbutton" id="btn1" style="margin-right: 15px">确定</a>
+                        <a class="easyui-linkbutton closebtn">关闭</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="modifydialog" title="入职管理" modal=true class="easyui-dialog" closed=true style="width:300px;">
+        <form id="modifyform" method="post">
+            <input type="hidden" name="id" />
+            <table align="center" style="margin-top: 15px;margin-bottom: 10px">
+                <tr>
+                    <td>人员编号:</td>
+                    <td>
+                        <input type="text" name="studentid" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>入职公司:</td>
+                    <td>
+                        <input type="text" name="company" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>入职岗位:</td>
+                    <td>
+                        <input type="text" name="job" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>入职时间:</td>
+                    <td>
+                        <input type="text" name="date" class="easyui-datebox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>薪水:</td>
+                    <td>
+                        <input type="text" name="pay" />
+                    </td>
+                </tr>
+                <tr align="center" style="margin-top: 10px">
+                    <td colspan="2">
+                        <a class="easyui-linkbutton" id="btn2" style="margin-right: 15px">确定</a>
+                        <a class="easyui-linkbutton closebtn">关闭</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="tb" style="padding:2px 5px;">
+        记录编号:
+        <input style="width:110px" id="id">人员编号:
+        <input style="width:110px" id="studentid"> 姓名:
+        <input style="width:110px" id="name"> 学校:
+        <input style="width:110px" id="school"> 学历:
+        <input style="width:110px" id="education"> 公司:
+        <input style="width:110px" id="company"> 岗位:
+        <input style="width:110px" id="job"> 入职时间 从:
+        <input class="easyui-datebox" style="width:110px" id="start"> 到:
+        <input class="easyui-datebox" style="width:110px" id="end"> 开启模糊查询：
+        <input type="checkbox" id="fuzzy">结果:
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" id="search">搜索</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="newRecord()">新增入职记录</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modifyRecord()">修改入职记录</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="deleteRecord()">删除入职记录</a>
+    </div>
+</body>
+
+</html>

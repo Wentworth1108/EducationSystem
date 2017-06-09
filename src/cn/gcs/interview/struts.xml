@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<package namespace="/" name="mapping" extends="struts-default">
+
+		<!-- 我的申请 -->
+		<action name="MyPutoffRecord" class="myPutoffRecord">
+			<result>/jsp/employment/MyPutoffRecord.jsp</result>
+		</action>
+		<action name="MyGiveupRecord" class="myGiveupRecord">
+			<result>/jsp/employment/MyGiveupRecord.jsp</result>
+		</action>
+		<action name="LeaveInfo" class="myLeaveInfo">
+			<result>/jsp/leave/LeaveInfo.jsp</result>
+		</action>
+
+	</package>
+
+	<package namespace="/" name="json" extends="json-default">
+
+		<!-- 用户相关 -->
+		<action name="login" class="login" />
+		<action name="logout" class="logout">
+			<result>login.html</result>
+		</action>
+
+		<!-- 成功就业 -->
+		<action name="datagrid_data_successemployment_record" class="successEmploymentRecord">
+			<result type="json" />
+		</action>
+		<action name="add_successemployment_record" class="addSuccessEmploymentRecord" />
+		<action name="modify_successemployment_record" class="modifySuccessEmploymentRecord" />
+		<action name="delete_successemployment_record" class="deleteSuccessEmploymentRecord" />
+
+		<!-- 面试 -->
+		<action name="datagrid_data_interview" class="interviewAction">
+			<result type="json" />
+		</action>
+		<action name="datagrid_data_interview_history" class="interviewHistoryAction">
+			<result type="json" />
+		</action>
+		<action name="add_interview" class="addInterview" />
+		<action name="modify_interview" class="modifyInterview" />
+		<action name="delete_interview" class="deleteInterview" />
+
+		<!-- 面试记录 -->
+		<action name="apply_interview" class="applyInterview" />
+		<action name="datagrid_data_approvalforinterview" class="approvalInterviewList">
+			<result type="json" />
+		</action>
+		<action name="approvalinterview" class="approvalInterview" />
+		<action name="datagrid_data_my_interview_record" class="myInterviewList">
+			<result type="json" />
+		</action>
+		<action name="feedback" class="feedback" />
+		<action name="datagrid_data_interview_record" class="interviewRecord">
+			<result type="json" />
+		</action>
+
+		<!-- 推迟就业 -->
+		<action name="apply_putoff" class="applyPutoff" />
+		<action name="datagrid_data_approvalforputoff" class="approvalPutoffList">
+			<result type="json" />
+		</action>
+		<action name="approvalputoff" class="approvalPutoff" />
+		<action name="datagrid_data_putoff_record" class="putoffList">
+			<result type="json" />
+		</action>
+
+		<!-- 放弃就业 -->
+		<action name="apply_giveup" class="applyGiveup" />
+		<action name="datagrid_data_approvalforgiveup" class="approvalGiveupList">
+			<result type="json" />
+		</action>
+		<action name="approvalgiveup" class="approvalGiveup" />
+		<action name="datagrid_data_giveup_record" class="giveupList">
+			<result type="json" />
+		</action>
+
+		<!-- 离院 -->
+		<action name="apply_leave" class="applyLeave" />
+		<action name="datagrid_data_approvalforleave" class="approvalLeaveList">
+			<result type="json" />
+		</action>
+		<action name="approvalleave" class="approvalLeave" />
+		<action name="datagrid_data_leave_record" class="leaveList">
+			<result type="json" />
+		</action>
+		
+	</package>
+
+</struts>

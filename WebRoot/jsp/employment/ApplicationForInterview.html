@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Interview</title>
+     <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $('#t_interview').datagrid({
+            idField: 'id', //只要创建数据表格 就必须要加 idField
+            title: '申请参加面试',
+            fit: true,
+            url: './datagrid_data_interview',
+            fitColumns: true,
+            striped: true, //隔行变色特性
+            nowrap: false, //折行显示 为true 显示在一行
+            loadMsg: '数据正在加载,请耐心的等待...',
+            rownumbers: true,
+            singleSelect: true, //单选模式
+            columns: [
+                [{
+                    field: 'checkbox',
+                    width: 50,
+                    checkbox: true,
+                    align: 'center'
+                }, {
+                    field: 'id',
+                    title: '编号',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'company',
+                    title: '面试公司',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'job',
+                    title: '面试岗位',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'address',
+                    title: '面试地点',
+                    width: 360,
+                    align: 'center'
+                }, {
+                    field: 'date',
+                    title: '面试时间',
+                    width: 100,
+                    align: 'center',
+                }, {
+                    field: 'number',
+                    title: '招聘人数',
+                    width: 50,
+                    align: 'center'
+                }, {
+                    field: 'failTime',
+                    title: '过期时间',
+                    width: 100,
+                    align: 'center',
+                }]
+            ],
+            pagination: true,
+            toolbar: '#tb'
+        });
+
+        $("#btn1").on('click', function() {
+        	$.ajax({
+                url: 'apply_interview',
+                traditional: true,
+                data: {
+                    'interviewid':$('#t_interview').datagrid('getSelected').id
+                },
+                success: function(data) {
+                    alert('申请成功,等待审批')
+                }
+            });
+            $('#newdialog').dialog('close');
+            $('#t_interview').datagrid('clearSelections');
+        });
+
+        $(".closebtn").on('click', function() {
+            $('.easyui-dialog').dialog('close');
+        });
+    });
+
+    function newApply() {
+        var data = $('#t_interview').datagrid('getSelected');
+        if (data != null) {
+            $('#newform').form('load', data);
+            $('#newdialog').dialog('open');
+        } else {
+            alert('请选择要参加的面试');
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <table id="t_interview"></table>
+    <div id="newdialog" title="申请参加面试" modal=true class="easyui-dialog" closed=true style="width:300px;">
+        <form id="newform" method="post">
+            <input type="hidden" name="id" />
+            <table align="center" style="margin-top: 15px;margin-bottom: 10px">
+                <tr>
+                    <td>面试公司:</td>
+                    <td>
+                        <input type="text" name="company" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>面试岗位:</td>
+                    <td>
+                        <input type="text" name="job" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>面试时间:</td>
+                    <td>
+                        <input type="text" name="date" class="easyui-datebox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>面试地点:</td>
+                    <td>
+                        <input type="text" name="address" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>招聘人数:</td>
+                    <td>
+                        <input type="text" name="number" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>过期时间:</td>
+                    <td>
+                        <input type="text" name="failTime" class="easyui-datebox" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td>
+                        <input type="text" name="remark" />
+                    </td>
+                </tr>
+                <tr align="center" style="margin-top: 10px">
+                    <td colspan="2">
+                        <a id="btn1" class="easyui-linkbutton" style="margin-right: 15px">提交面试申请</a>
+                        <a class="easyui-linkbutton closebtn">取消</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="tb" style="padding:2px 5px;">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="newApply()">申请参加面试</a>
+    </div>
+</body>
+
+</html>

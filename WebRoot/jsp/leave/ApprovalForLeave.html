@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $('#t').datagrid({
+            idField: 'id', //只要创建数据表格 就必须要加 idField
+            title: '审批离园',
+            fit: true,
+            url: './datagrid_data_approvalforleave',
+            fitColumns: false,
+            striped: true, //隔行变色特性
+            nowrap: false, //折行显示 为true 显示在一行
+            loadMsg: '数据正在加载,请耐心的等待...',
+            rownumbers: true,
+            columns: [
+                [{
+                    field: 'checkbox',
+                    width: 50,
+                    checkbox: true,
+                    align: 'center'
+                }, {
+                    field: 'id',
+                    title: '离园申请编号',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'personid',
+                    title: '申请人编号',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'name',
+                    title: '申请人',
+                    width: 80,
+                    align: 'center'
+                }, {
+                    field: 'phone',
+                    title: '联系方式',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'school',
+                    title: '毕业院校',
+                    width: 360,
+                    align: 'center'
+                }, {
+                    field: 'date',
+                    title: '离园时间',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'reason',
+                    title: '原因',
+                    width: 500,
+                    align: 'center'
+                }]
+            ],
+            pagination: true,
+            toolbar: '#tb'
+        });
+    });
+
+	function pass() {
+		var data = $('#t').datagrid('getSelections');
+        if (data[0] != null) {
+            if (confirm('确认批准这'+data.length+'项?')) {
+                var id = new Array();
+                for (i = 0; i < data.length; i++) {
+                    id[i] = data[i].id
+                }
+                $.ajax({
+                    url: 'approvalleave',
+                    traditional: true,
+                    data: {
+                    	'handle': 'pass',
+                        'id': id
+                    },
+                    success: function(){
+                    	$('#t').datagrid('reload');
+                    }
+                });
+                $('#t').datagrid('clearSelections');
+            }
+        } else {
+            alert('没有选中数据');
+        }
+	}
+	
+	function refuse() {
+		var data = $('#t').datagrid('getSelections');
+        if (data[0] != null) {
+            if (confirm('确认拒绝这'+data.length+'项?')) {
+                var id = new Array();
+                for (i = 0; i < data.length; i++) {
+                    id[i] = data[i].id
+                }
+                $.ajax({
+                    url: 'approvalleave',
+                    traditional: true,
+                    data: {
+                    	'handle': 'refuse',
+                        'id': id
+                    },
+                    success: function(){
+                    	$('#t').datagrid('reload');
+                    }
+                });
+                $('#t').datagrid('clearSelections');
+            }
+        } else {
+            alert('没有选中数据');
+        }
+	}
+    </script>
+</head>
+
+<body>
+    <table id="t"></table>
+    
+    <div id="tb" style="padding:2px 5px;">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="pass()">通过</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="refuse()">拒绝</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+     <package name="score-action" namespace="/course"  extends="json-default">
+		<action name="score_*" class="cn.gcs.score.action.ScoreAction" method="{1}">
+			<result>/jsp/course/score/listUI.jsp</result>
+			<result name="list" type="redirectAction">score_listUI</result>
+			<allowed-methods>listUI, add, edit, delete, deleteSelected, verifyStudentId</allowed-methods>
+		</action>
+		<action name="score_data" class="cn.gcs.score.action.ScoreAction" method="listUI">
+			<result type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+	</package>
+
+</struts>

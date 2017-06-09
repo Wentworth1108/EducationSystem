@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package  name="talk-data" namespace="/talk" extends="json-default">
+		<action name="talk_data" class="cn.gcs.talk.action.TalkAction" method="talkList">
+			<result name="talkList" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="talk-action" namespace="/talk" extends="struts-default">
+		<action name="talk_add" class="cn.gcs.talk.action.TalkAction" method="add">
+			<result type="redirect">/jsp/daily/d_talk.jsp</result>
+		</action>
+		<action name="talk_edit" class="cn.gcs.talk.action.TalkAction" method="edit">
+			<result type="redirect">/jsp/daily/d_talk.jsp</result>
+		</action>
+		<action name="talk_deleteSelected" class="cn.gcs.talk.action.TalkAction" method="deleteSelected">
+			<result name="success" type="redirect">/jsp/daily/d_talk.jsp</result>
+		</action>
+		
+		<action name="talk_verifyStudent" class="cn.gcs.talk.action.TalkAction" method="verifyStudent">
+		</action>
+		<action name="talk_verifyTeacher" class="cn.gcs.talk.action.TalkAction" method="verifyTeacher">
+		</action>
+	</package>
+
+	
+</struts>

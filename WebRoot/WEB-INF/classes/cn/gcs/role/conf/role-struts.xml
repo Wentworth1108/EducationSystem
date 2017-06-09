@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="role-action" namespace="/system" extends="struts-default">
+		<action name="role_listUI" class="cn.gcs.role.action.RoleAction" method="listUI">
+			<result name="listUI">/jsp/system/role/listUI.jsp</result>
+		</action>
+		<action name="role_add" class="cn.gcs.role.action.RoleAction" method="add">
+			<result name="list" type="redirectAction">role_listUI</result>
+		</action>
+		<action name="role_edit" class="cn.gcs.role.action.RoleAction" method="edit">
+			<result name="list" type="redirectAction">role_listUI</result>
+		</action>
+		<action name="role_deleteSelected" class="cn.gcs.role.action.RoleAction" method="deleteSelected">
+			<result name="list" type="redirectAction">role_listUI</result>
+		</action>
+    </package>
+	<package  name="role-data" namespace="/system" extends="json-default">
+		<action name="role_data" class="cn.gcs.role.action.RoleAction" method="listUI">
+			<result name="listUI" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+	</package>
+</struts>

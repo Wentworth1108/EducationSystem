@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="cn.gcs.course.entity.CourseTeacher" table="course_teacher">
+		<composite-id name="id" class="cn.gcs.course.entity.CourseTeacherId">
+			<key-many-to-one name="course" lazy="false" class="cn.gcs.course.entity.Course">
+				<column name="course_id" ></column>
+			</key-many-to-one>
+			<key-many-to-one name="user" lazy="false" class="cn.gcs.user.entity.User">
+				<column name="user_id" ></column>
+			</key-many-to-one>
+		</composite-id>
+	</class>
+</hibernate-mapping>

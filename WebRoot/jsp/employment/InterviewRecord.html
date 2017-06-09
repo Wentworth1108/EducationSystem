@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>InterviewRecord</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/demo/demo.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+    $(function() {
+        $('#t_interviewrecord').datagrid({
+            idField: 'id', //只要创建数据表格 就必须要加 idField
+            title: '面试记录管理',
+            fit: true,
+            url: './datagrid_data_interview_record',
+            fitColumns: false,
+            striped: true, //隔行变色特性
+            nowrap: true, //折行显示 为true 显示在一行
+            loadMsg: '数据正在加载,请耐心的等待...',
+            rownumbers: true,
+            singleSelect: true, //单选模式
+            columns: [
+                [{
+                    field: 'checkbox',
+                    width: 50,
+                    checkbox: true,
+                    align: 'center'
+                }, {
+                    field: 'id',
+                    title: '面试记录编号',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'interviewid',
+                    title: '面试编号',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'personid',
+                    title: '面试人编号',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'person',
+                    title: '面试人',
+                    width: 120,
+                    align: 'center'
+                }, {
+                    field: 'company',
+                    title: '面试公司',
+                    width: 200,
+                    align: 'center'
+                }, {
+                    field: 'job',
+                    title: '面试岗位',
+                    width: 200,
+                    align: 'center'
+                }, {
+                    field: 'date',
+                    title: '面试时间',
+                    width: 100,
+                    align: 'center',
+                }, {
+                    field: 'address',
+                    title: '面试地点',
+                    width: 300,
+                    align: 'center',
+                }, {
+                    field: 'state',
+                    title: '当前状态',
+                    width: 100,
+                    align: 'center'
+                }, {
+                    field: 'summary',
+                    title: '总结',
+                    width: 500,
+                    align: 'center'
+                }]
+            ],
+            pagination: true,
+            toolbar: '#tb'
+        });
+    });
+
+    </script>
+</head>
+
+<body>
+    <table id="t_interviewrecord"></table>
+</body>
+
+</html>

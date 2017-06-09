@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+ 	<package name="violate_data" namespace="/violate" extends="json-default">      
+		<action name="violate_data" class="cn.gcs.violate.action.ViolateAction" method="violateList">
+			<result name="violateList" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="violate-action" namespace="/violate" extends="struts-default">
+		<action name="violate_add" class="cn.gcs.violate.action.ViolateAction" method="add">
+			<result type="redirect">/jsp/daily/d_violation.jsp</result>
+		</action>
+		<action name="violate_deleteSelected" class="cn.gcs.violate.action.ViolateAction" method="deleteSelected">
+			<result type="redirect">/jsp/daily/d_violation.jsp</result>
+		</action>
+		
+		<action name="violate_verifyStudent" class="cn.gcs.violate.action.ViolateAction" method="verifyStudent">
+		</action>
+	</package>
+	
+	
+	
+	<package name="attendance_data" namespace="/attendance" extends="json-default">      
+		<action name="attendance_data" class="cn.gcs.violate.action.ViolateAction" method="attendanceList">
+			<result name="attendanceList" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+	</package>
+	
+</struts>
